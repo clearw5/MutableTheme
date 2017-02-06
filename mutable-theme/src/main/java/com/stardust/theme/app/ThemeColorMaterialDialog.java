@@ -1,15 +1,11 @@
 package com.stardust.theme.app;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.stardust.theme.ThemeColorManager;
-
 /**
  * Created by Stardust on 2016/8/15.
  */
-public class ThemeColorMaterialDialog extends MaterialDialog {
+public class ThemeColorMaterialDialog  {
+
+    /*
 
     public static final int DEFAULT_NEGATIVE_COLOR = 0xff7a7a7a;
     public static final int DEFAULT_NEUTRAL_COLOR = 0xff616161;
@@ -30,4 +26,5 @@ public class ThemeColorMaterialDialog extends MaterialDialog {
             widgetColor(ThemeColorManager.getColorPrimary());
         }
     }
+    */
 }

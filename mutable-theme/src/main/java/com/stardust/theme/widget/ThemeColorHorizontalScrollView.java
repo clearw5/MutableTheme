@@ -9,7 +9,6 @@ import android.widget.HorizontalScrollView;
 
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
-import com.stardust.tool.BuildTool;
 
 import java.lang.reflect.Field;
 
@@ -56,7 +55,7 @@ public class ThemeColorHorizontalScrollView extends HorizontalScrollView impleme
 
     @Override
     public void setColorPrimary(int color) {
-        if (Build.VERSION.SDK_INT >= BuildTool.Android5) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mFadingEdgeColor = color;
             if (mEdgeGlowLeft != null && mEdgeGlowRight != null) {
                 mEdgeGlowLeft.setColor(color);

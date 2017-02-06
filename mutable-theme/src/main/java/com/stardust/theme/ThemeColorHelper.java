@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 
 import com.stardust.theme.internal.ScrollingViewEdgeGlowColorHelper;
-import com.stardust.tool.ColorTool;
 
 
 /**
@@ -55,10 +54,14 @@ public class ThemeColorHelper {
         };
         int[] trackColors = new int[]{
                 Color.GRAY,
-                ColorTool.makeAlpha(0x66, color)
+                makeAlpha(0x66, color)
         };
         DrawableCompat.setTintList(DrawableCompat.wrap(switchCompat.getThumbDrawable()), new ColorStateList(states, thumbColors));
         DrawableCompat.setTintList(DrawableCompat.wrap(switchCompat.getTrackDrawable()), new ColorStateList(states, trackColors));
+    }
+
+    private static int makeAlpha(int alpha, int color) {
+        return (color & 0xffffff) & (alpha << 24);
     }
 
 

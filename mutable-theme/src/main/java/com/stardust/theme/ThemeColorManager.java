@@ -6,9 +6,6 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.view.View;
 
-import com.stardust.tool.ContextReservoir;
-import com.stardust.tool.ViewTool;
-
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,13 +19,6 @@ import java.util.Vector;
 public class ThemeColorManager {
 
     private static int mColorPrimary = 0xff4caf50;
-
-    static {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (ContextReservoir.getDefaultContext() != null)
-                mColorPrimary = ViewTool.getColor(ContextReservoir.getDefaultContext(), android.R.attr.colorPrimary);
-        }
-    }
 
     public static void add(ThemeColorMutable colorMutable) {
         ThemeColorMutableManager.add(colorMutable);

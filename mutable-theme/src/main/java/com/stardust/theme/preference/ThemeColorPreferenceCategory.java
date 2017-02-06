@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.stardust.theme.R;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
@@ -46,7 +45,6 @@ public class ThemeColorPreferenceCategory extends PreferenceCategory implements 
 
     private void init() {
         ThemeColorManager.add(this);
-        setLayoutResource(R.layout.preference_category_widget);
     }
 
     public void setTitleTextColor(int titleTextColor) {

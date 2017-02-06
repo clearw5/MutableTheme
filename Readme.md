@@ -1,6 +1,25 @@
 #MutableTheme
 安卓上一个改变“主题色”的库。所谓“主题色”，通常指colorPrimary。目前该库仍很不完善，支持控件很少。
-#Usages
+Usages
+--------
+
+###Step 1
+Add it in your root build.gradle at the end of repositories:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+Add the dependency
+```
+dependencies {
+        compile 'com.github.hyb1996:MutableTheme:v0.1.0'
+}
+```
+###Step 2
 用ThemeColor的Widgets代替原来的控件，之后通过`ThemeColorManager.setColorPrimary(color)`来改变主题色。
 或者直接通过`ThemeColorHelper.setColor(view, color)`来设置，这会遍历该view及其所有子View并将可以改变设置主题色的改变颜色（不完善，只支持了一小部分）。
 

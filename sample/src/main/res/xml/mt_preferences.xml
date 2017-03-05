@@ -5,16 +5,20 @@
 
         <com.stardust.theme.preference.ThemeColorCheckBoxPreference
             android:summary="a checkbox"
-            android:title="CheckBox" />
+            android:title="CheckBox"/>
+
+        <com.stardust.theme.preference.ThemeColorSwitchPreference
+            android:summary="a switch"
+            android:title="Switch"/>
 
 
     </com.stardust.theme.preference.ThemeColorPreferenceCategory>
 
     <com.stardust.theme.preference.ThemeColorPreferenceCategory android:title="About">
 
-        <Preference android:title="Mutable Theme by hyb1996" />
+        <Preference android:title="Mutable Theme by hyb1996"/>
 
-        <Preference android:title="https://github.com/hyb1996/MutableTheme" />
+        <Preference android:title="https://github.com/hyb1996/MutableTheme"/>
 
 
     </com.stardust.theme.preference.ThemeColorPreferenceCategory>

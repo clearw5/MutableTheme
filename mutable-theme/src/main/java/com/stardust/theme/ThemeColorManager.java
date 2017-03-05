@@ -20,13 +20,19 @@ import java.util.Vector;
 
 public class ThemeColorManager {
 
-    private static ThemeColor themeColor = new ThemeColor(0xff4caf50);
+    private static ThemeColor defaultThemeColor;
+    private static ThemeColor themeColor;
     private static WeakReference<Context> contextWeakReference;
 
     public static void init(Context context) {
         contextWeakReference = new WeakReference<>(context);
-        themeColor.readFrom(PreferenceManager.getDefaultSharedPreferences(context));
+        themeColor = ThemeColor.fromPreferences(PreferenceManager.getDefaultSharedPreferences(context), defaultThemeColor);
     }
+
+    public static void setDefaultThemeColor(ThemeColor defaultThemeColor) {
+        ThemeColorManager.defaultThemeColor = defaultThemeColor;
+    }
+
 
     public static void add(ThemeColorMutable colorMutable) {
         ThemeColorMutableManager.add(colorMutable);
@@ -64,6 +70,8 @@ public class ThemeColorManager {
     }
 
     public static int getColorPrimary() {
+        if (themeColor == null)
+            return 0;
         return themeColor.colorPrimary;
     }
 
@@ -93,7 +101,8 @@ public class ThemeColorManager {
 
         public static void add(View view) {
             views.add(new WeakReference<>(view));
-            view.setBackgroundColor(themeColor.colorPrimary);
+            if (themeColor != null)
+                view.setBackgroundColor(themeColor.colorPrimary);
         }
 
         public static void setColor(int color) {
@@ -116,7 +125,8 @@ public class ThemeColorManager {
         public static void add(Activity activity) {
             if (Build.VERSION.SDK_INT >= 21) {
                 activities.add(new WeakReference<>(activity));
-                activity.getWindow().setStatusBarColor(themeColor.colorPrimary);
+                if (themeColor != null)
+                    activity.getWindow().setStatusBarColor(themeColor.colorPrimary);
             }
         }
 
@@ -138,7 +148,8 @@ public class ThemeColorManager {
         private static List<WeakReference<Paint>> paints = new LinkedList<>();
 
         public static void add(Paint paint) {
-            paint.setColor(themeColor.colorPrimary);
+            if (themeColor != null)
+                paint.setColor(themeColor.colorPrimary);
             paints.add(new WeakReference<>(paint));
         }
 
@@ -160,7 +171,8 @@ public class ThemeColorManager {
         private static List<ThemeColorMutableReference> widgets = new LinkedList<>();
 
         public static void add(ThemeColorMutableReference widget) {
-            widget.setThemeColor(themeColor);
+            if (themeColor != null)
+                widget.setThemeColor(themeColor);
             widgets.add(widget);
         }
 
@@ -183,7 +195,8 @@ public class ThemeColorManager {
         private static List<WeakReference<ThemeColorMutable>> widgets = new LinkedList<>();
 
         public static void add(ThemeColorMutable widget) {
-            widget.setThemeColor(themeColor);
+            if (themeColor != null)
+                widget.setThemeColor(themeColor);
             widgets.add(new WeakReference<>(widget));
         }
 

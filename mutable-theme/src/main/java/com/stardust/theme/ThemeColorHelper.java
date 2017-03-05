@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AbsListView;
+import android.widget.Switch;
 
 import com.stardust.theme.internal.ScrollingViewEdgeGlowColorHelper;
 
@@ -28,6 +29,10 @@ import com.stardust.theme.internal.ScrollingViewEdgeGlowColorHelper;
 public class ThemeColorHelper {
 
     private static final String TAG = "ThemeColorHelper";
+    private static final int[][] SWITCH_STATES = new int[][]{
+            new int[]{-android.R.attr.state_checked},
+            new int[]{android.R.attr.state_checked},
+    };
 
     private static void setColorPrimary(View v, int themeColor) {
         if (v instanceof ThemeColorMutable) {
@@ -48,20 +53,32 @@ public class ThemeColorHelper {
     }
 
     public static void setColorPrimary(SwitchCompat switchCompat, int color) {
-        int[][] states = new int[][]{
-                new int[]{-android.R.attr.state_checked},
-                new int[]{android.R.attr.state_checked},
-        };
+        setThumbDrawableTintList(switchCompat.getThumbDrawable(), color);
+        setTrackDrawableTintList(switchCompat.getTrackDrawable(), color);
+    }
+
+    public static void setColorPrimary(Switch sw, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            setThumbDrawableTintList(sw.getThumbDrawable(), color);
+            setTrackDrawableTintList(sw.getTrackDrawable(), color);
+        }
+    }
+
+    private static void setThumbDrawableTintList(Drawable drawable, int color) {
         int[] thumbColors = new int[]{
                 Color.DKGRAY,
                 color,
         };
+        DrawableCompat.setTintList(DrawableCompat.wrap(drawable), new ColorStateList(SWITCH_STATES, thumbColors));
+
+    }
+
+    private static void setTrackDrawableTintList(Drawable drawable, int color) {
         int[] trackColors = new int[]{
                 Color.GRAY,
                 makeAlpha(0x66, color)
         };
-        DrawableCompat.setTintList(DrawableCompat.wrap(switchCompat.getThumbDrawable()), new ColorStateList(states, thumbColors));
-        DrawableCompat.setTintList(DrawableCompat.wrap(switchCompat.getTrackDrawable()), new ColorStateList(states, trackColors));
+        DrawableCompat.setTintList(DrawableCompat.wrap(drawable), new ColorStateList(SWITCH_STATES, trackColors));
     }
 
     private static int makeAlpha(int alpha, int color) {

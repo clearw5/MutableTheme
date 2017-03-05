@@ -12,6 +12,8 @@ public class ThemeColor {
     private static final String KEY_COLOR_PRIMARY_DARK = "com.stardust.theme.ThemeColor.KEY_COLOR_PRIMARY_DARK";
     private static final String KEY_COLOR_ACCENT = "com.stardust.theme.ThemeColor.KEY_COLOR_ACCENT";
 
+    private static final ThemeColor TRANSPARENT = new ThemeColor();
+
     public int colorPrimary, colorAccent, colorPrimaryDark;
 
     public ThemeColor() {
@@ -56,10 +58,20 @@ public class ThemeColor {
 
     }
 
-    public ThemeColor readFrom(SharedPreferences preferences) {
-        colorPrimary = preferences.getInt(KEY_COLOR_PRIMARY, colorPrimary);
-        colorAccent = preferences.getInt(KEY_COLOR_ACCENT, colorAccent);
-        colorPrimaryDark = preferences.getInt(KEY_COLOR_PRIMARY_DARK, colorPrimaryDark);
+    public ThemeColor readFrom(SharedPreferences preferences, ThemeColor defaultThemeColor) {
+        colorPrimary = preferences.getInt(KEY_COLOR_PRIMARY, defaultThemeColor.colorPrimary);
+        colorAccent = preferences.getInt(KEY_COLOR_ACCENT, defaultThemeColor.colorAccent);
+        colorPrimaryDark = preferences.getInt(KEY_COLOR_PRIMARY_DARK, defaultThemeColor.colorPrimaryDark);
         return this;
+    }
+
+    public static ThemeColor fromPreferences(SharedPreferences preferences, ThemeColor defaultThemeColor) {
+        if (preferences.contains(KEY_COLOR_PRIMARY) && preferences.contains(KEY_COLOR_PRIMARY_DARK) && preferences.contains(KEY_COLOR_ACCENT)) {
+            return new ThemeColor().readFrom(preferences, TRANSPARENT);
+        } else if (defaultThemeColor == null) {
+            return null;
+        } else {
+            return new ThemeColor().readFrom(preferences, defaultThemeColor);
+        }
     }
 }

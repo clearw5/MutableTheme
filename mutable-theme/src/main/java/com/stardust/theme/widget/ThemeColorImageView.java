@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -16,7 +18,7 @@ import com.stardust.theme.internal.DrawableTool;
  * Created by Stardust on 2017/2/12.
  */
 
-public class ThemeColorImageView extends ImageView implements ThemeColorMutable {
+public class ThemeColorImageView extends AppCompatImageView implements ThemeColorMutable {
 
     private int mColor = Color.TRANSPARENT;
 
@@ -35,12 +37,6 @@ public class ThemeColorImageView extends ImageView implements ThemeColorMutable 
         init();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public ThemeColorImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     private void init() {
         ThemeColorManager.add(this);
     }
@@ -49,6 +45,7 @@ public class ThemeColorImageView extends ImageView implements ThemeColorMutable 
     public void setThemeColor(ThemeColor color) {
         if (mColor == color.colorPrimary)
             return;
+        mColor = color.colorPrimary;
         setColor(color.colorPrimary);
     }
 
@@ -60,6 +57,7 @@ public class ThemeColorImageView extends ImageView implements ThemeColorMutable 
     }
 
     private void setColor(int color) {
+
         setImageDrawable(DrawableTool.filterDrawableColor(getDrawable(), color));
     }
 }

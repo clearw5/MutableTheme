@@ -44,6 +44,7 @@ public class ThemeColorNavigationView extends NavigationView {
 
     private void init() {
         NavigationMenuView view = (NavigationMenuView) getChildAt(0);
+
     }
 
     public static class ThemeColorNavigationMenuView extends ThemeColorRecyclerView implements MenuView {

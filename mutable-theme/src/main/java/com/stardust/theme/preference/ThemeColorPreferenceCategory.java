@@ -64,6 +64,7 @@ public class ThemeColorPreferenceCategory extends PreferenceCategory implements 
     @Override
     public void setColorPrimary(int color) {
         mColor = color;
-        mTitleTextView.setTextColor(mColor);
+        if (mTitleTextView != null)
+            mTitleTextView.setTextColor(mColor);
     }
 }

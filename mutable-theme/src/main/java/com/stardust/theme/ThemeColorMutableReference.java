@@ -6,7 +6,7 @@ package com.stardust.theme;
 
 public interface ThemeColorMutableReference {
 
-    void setColor(int color);
+    void setThemeColor(ThemeColor color);
 
     boolean isNull();
     

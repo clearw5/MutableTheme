@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.stardust.theme.preference.ThemeColorPreferenceCategory android:title="Test">
+
+        <com.stardust.theme.preference.ThemeColorCheckBoxPreference
+            android:summary="a checkbox"
+            android:title="CheckBox" />
+
+
+    </com.stardust.theme.preference.ThemeColorPreferenceCategory>
+
+    <com.stardust.theme.preference.ThemeColorPreferenceCategory android:title="About">
+
+        <Preference android:title="Mutable Theme by hyb1996" />
+
+        <Preference android:title="https://github.com/hyb1996/MutableTheme" />
+
+
+    </com.stardust.theme.preference.ThemeColorPreferenceCategory>
+</PreferenceScreen>

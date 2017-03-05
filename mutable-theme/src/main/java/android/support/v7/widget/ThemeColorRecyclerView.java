@@ -8,6 +8,7 @@ import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
 import android.widget.EdgeEffect;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
@@ -70,7 +71,7 @@ public class ThemeColorRecyclerView extends RecyclerView implements ThemeColorMu
         ThemeColorManager.add(this);
     }
 
-   // TODO support api 21 below
+    // TODO support api 21 below
     private boolean setEdgeEffectColor(EdgeEffectCompat compat, int color) {
         if (compat == null)
             return false;
@@ -86,10 +87,10 @@ public class ThemeColorRecyclerView extends RecyclerView implements ThemeColorMu
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        if (color == mColorPrimary)
+    public void setThemeColor(ThemeColor color) {
+        if (color.colorPrimary == mColorPrimary)
             return;
-        mColorPrimary = color;
+        mColorPrimary = color.colorPrimary;
         invalidateGlows();
     }
 

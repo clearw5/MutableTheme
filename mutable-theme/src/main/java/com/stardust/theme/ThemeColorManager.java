@@ -2,8 +2,10 @@ package com.stardust.theme;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Paint;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import java.lang.ref.WeakReference;
@@ -18,7 +20,13 @@ import java.util.Vector;
 
 public class ThemeColorManager {
 
-    private static int mColorPrimary = 0xff4caf50;
+    private static ThemeColor themeColor = new ThemeColor(0xff4caf50);
+    private static WeakReference<Context> contextWeakReference;
+
+    public static void init(Context context) {
+        contextWeakReference = new WeakReference<>(context);
+        themeColor.readFrom(PreferenceManager.getDefaultSharedPreferences(context));
+    }
 
     public static void add(ThemeColorMutable colorMutable) {
         ThemeColorMutableManager.add(colorMutable);
@@ -43,8 +51,8 @@ public class ThemeColorManager {
 
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
-                public void setColor(int color) {
-                    activity.getWindow().setNavigationBarColor(color);
+                public void setThemeColor(ThemeColor color) {
+                    activity.getWindow().setNavigationBarColor(color.colorPrimary);
                 }
 
                 @Override
@@ -56,7 +64,7 @@ public class ThemeColorManager {
     }
 
     public static int getColorPrimary() {
-        return mColorPrimary;
+        return themeColor.colorPrimary;
     }
 
     /**
@@ -64,13 +72,20 @@ public class ThemeColorManager {
      *
      * @param color 主题色RGB值
      */
-    public static void setColorPrimary(int color) {
-        mColorPrimary = color;
-        BackgroundColorManager.setColor(mColorPrimary);
-        StatusBarManager.setColor(mColorPrimary);
-        PaintManager.setColor(mColorPrimary);
-        ThemeColorMutableManager.setColor(mColorPrimary);
-        ThemeColorWidgetReferenceManager.setColor(mColorPrimary);
+    public static void setThemeColor(int color) {
+        themeColor = new ThemeColor(color);
+        saveThemeColorIfNeeded();
+        BackgroundColorManager.setColor(color);
+        StatusBarManager.setColor(color);
+        PaintManager.setColor(color);
+        ThemeColorMutableManager.setColor(themeColor);
+        ThemeColorWidgetReferenceManager.setColor(themeColor);
+    }
+
+    private static void saveThemeColorIfNeeded() {
+        if (contextWeakReference != null && contextWeakReference.get() != null) {
+            themeColor.saveIn(PreferenceManager.getDefaultSharedPreferences(contextWeakReference.get()));
+        }
     }
 
     private static class BackgroundColorManager {
@@ -78,7 +93,7 @@ public class ThemeColorManager {
 
         public static void add(View view) {
             views.add(new WeakReference<>(view));
-            view.setBackgroundColor(mColorPrimary);
+            view.setBackgroundColor(themeColor.colorPrimary);
         }
 
         public static void setColor(int color) {
@@ -101,7 +116,7 @@ public class ThemeColorManager {
         public static void add(Activity activity) {
             if (Build.VERSION.SDK_INT >= 21) {
                 activities.add(new WeakReference<>(activity));
-                activity.getWindow().setStatusBarColor(mColorPrimary);
+                activity.getWindow().setStatusBarColor(themeColor.colorPrimary);
             }
         }
 
@@ -123,7 +138,7 @@ public class ThemeColorManager {
         private static List<WeakReference<Paint>> paints = new LinkedList<>();
 
         public static void add(Paint paint) {
-            paint.setColor(mColorPrimary);
+            paint.setColor(themeColor.colorPrimary);
             paints.add(new WeakReference<>(paint));
         }
 
@@ -145,16 +160,16 @@ public class ThemeColorManager {
         private static List<ThemeColorMutableReference> widgets = new LinkedList<>();
 
         public static void add(ThemeColorMutableReference widget) {
-            widget.setColor(mColorPrimary);
+            widget.setThemeColor(themeColor);
             widgets.add(widget);
         }
 
-        public static void setColor(int color) {
+        public static void setColor(ThemeColor color) {
             Iterator<ThemeColorMutableReference> iterator = widgets.iterator();
             while (iterator.hasNext()) {
                 ThemeColorMutableReference widget = iterator.next();
                 if (!widget.isNull()) {
-                    widget.setColor(color);
+                    widget.setThemeColor(color);
                 } else {
                     iterator.remove();
                 }
@@ -168,16 +183,16 @@ public class ThemeColorManager {
         private static List<WeakReference<ThemeColorMutable>> widgets = new LinkedList<>();
 
         public static void add(ThemeColorMutable widget) {
-            widget.setColorPrimary(mColorPrimary);
+            widget.setThemeColor(themeColor);
             widgets.add(new WeakReference<>(widget));
         }
 
-        public static void setColor(int color) {
+        public static void setColor(ThemeColor color) {
             Iterator<WeakReference<ThemeColorMutable>> iterator = widgets.iterator();
             while (iterator.hasNext()) {
                 ThemeColorMutable widget = iterator.next().get();
                 if (widget != null) {
-                    widget.setColorPrimary(color);
+                    widget.setThemeColor(color);
                 } else {
                     iterator.remove();
                 }

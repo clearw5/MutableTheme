@@ -1,1 +1,1 @@
-include ':mutable-theme'
+include ':mutable-theme', ':sample'

@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
+import com.stardust.theme.ThemeColor;
+import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
 /**
@@ -15,18 +17,27 @@ public class ThemeColorToolbar extends Toolbar implements ThemeColorMutable {
 
     public ThemeColorToolbar(Context context) {
         super(context);
+        init();
     }
+
 
     public ThemeColorToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public ThemeColorToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
+    private void init() {
+        ThemeColorManager.add(this);
+    }
+
+
     @Override
-    public void setColorPrimary(int color) {
-        setBackgroundColor(color);
+    public void setThemeColor(ThemeColor color) {
+        setBackgroundColor(color.colorPrimary);
     }
 }

@@ -16,12 +16,12 @@ allprojects {
 Add the dependency
 ```
 dependencies {
-        compile 'com.github.hyb1996:MutableTheme:v0.1.0'
+        compile 'com.github.hyb1996:MutableTheme:v0.2.0'
 }
 ```
 ###Step 2
 用ThemeColor的Widgets代替原来的控件，之后通过`ThemeColorManager.setColorPrimary(color)`来改变主题色。
-或者直接通过`ThemeColorHelper.setColor(view, color)`来设置，这会遍历该view及其所有子View并将可以改变设置主题色的改变颜色（不完善，只支持了一小部分）。
+或者直接通过`ThemeColorHelper.setThemeColor(view, color)`来设置，这会遍历该view及其所有子View并将可以改变设置主题色的改变颜色（不完善，只支持了一小部分）。
 
 License
 --------

@@ -1,2 +1,4 @@
 <resources>
+    <string name="mt_color_picker_title">选择颜色</string>
+    <string name="mt_custom">自定义</string>
 </resources>

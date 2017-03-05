@@ -1,9 +1,11 @@
 package com.stardust.theme.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
@@ -31,7 +33,9 @@ public class ThemeColorFloatingActionButton extends FloatingActionButton impleme
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        setBackgroundColor(color);
+    public void setThemeColor(ThemeColor color) {
+        setBackgroundTintList(ColorStateList.valueOf(color.colorAccent));
     }
+
+
 }

@@ -6,6 +6,6 @@ package com.stardust.theme;
 
 public interface ThemeColorMutable {
 
-    void setColorPrimary(int color);
+    void setThemeColor(ThemeColor color);
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
@@ -62,8 +63,8 @@ public class ThemeColorPreferenceCategory extends PreferenceCategory implements 
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        mColor = color;
+    public void setThemeColor(ThemeColor color) {
+        mColor = color.colorPrimary;
         if (mTitleTextView != null)
             mTitleTextView.setTextColor(mColor);
     }

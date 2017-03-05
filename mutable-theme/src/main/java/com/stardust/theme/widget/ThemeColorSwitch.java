@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorHelper;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
@@ -33,7 +34,7 @@ public class ThemeColorSwitch extends SwitchCompat implements ThemeColorMutable 
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        ThemeColorHelper.setColorPrimary(this, color);
+    public void setThemeColor(ThemeColor color) {
+        ThemeColorHelper.setColorPrimary(this, color.colorPrimary);
     }
 }

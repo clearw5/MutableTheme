@@ -4,6 +4,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.SwitchCompat;
@@ -27,7 +31,7 @@ public class ThemeColorHelper {
 
     private static void setColorPrimary(View v, int themeColor) {
         if (v instanceof ThemeColorMutable) {
-            ((ThemeColorMutable) v).setColorPrimary(themeColor);
+            ((ThemeColorMutable) v).setThemeColor(new ThemeColor(themeColor));
             return;
         }
         if (v instanceof AbsListView) {
@@ -61,7 +65,7 @@ public class ThemeColorHelper {
     }
 
     private static int makeAlpha(int alpha, int color) {
-        return (color & 0xffffff) & (alpha << 24);
+        return (color & 0xffffff) | (alpha << 24);
     }
 
 
@@ -71,6 +75,19 @@ public class ThemeColorHelper {
             Window window = activity.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
+        }
+    }
+
+    public static void setBackgroundColor(View view, int color) {
+        Drawable background = view.getBackground();
+        if (background instanceof ShapeDrawable) {
+            ((ShapeDrawable) background).getPaint().setColor(color);
+        } else if (background instanceof GradientDrawable) {
+            ((GradientDrawable) background).setColor(color);
+        } else if (background instanceof ColorDrawable) {
+            ((ColorDrawable) background).setColor(color);
+        } else {
+            view.setBackgroundColor(color);
         }
     }
 }

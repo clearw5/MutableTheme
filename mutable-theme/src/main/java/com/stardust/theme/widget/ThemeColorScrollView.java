@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorMutable;
 import com.stardust.theme.internal.ScrollingViewEdgeGlowColorHelper;
 import com.stardust.theme.ThemeColorManager;
@@ -48,8 +49,8 @@ public class ThemeColorScrollView extends ScrollView implements ThemeColorMutabl
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        mFadingEdgeColor = color;
+    public void setThemeColor(ThemeColor color) {
+        mFadingEdgeColor = color.colorPrimary;
         ScrollingViewEdgeGlowColorHelper.setEdgeGlowColor(this, mFadingEdgeColor);
         invalidate();
     }

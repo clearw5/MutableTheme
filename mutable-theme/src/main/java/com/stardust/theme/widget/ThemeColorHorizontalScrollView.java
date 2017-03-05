@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.EdgeEffect;
 import android.widget.HorizontalScrollView;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
@@ -54,12 +55,12 @@ public class ThemeColorHorizontalScrollView extends HorizontalScrollView impleme
     }
 
     @Override
-    public void setColorPrimary(int color) {
+    public void setThemeColor(ThemeColor color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mFadingEdgeColor = color;
+            mFadingEdgeColor = color.colorPrimary;
             if (mEdgeGlowLeft != null && mEdgeGlowRight != null) {
-                mEdgeGlowLeft.setColor(color);
-                mEdgeGlowRight.setColor(color);
+                mEdgeGlowLeft.setColor(color.colorPrimary);
+                mEdgeGlowRight.setColor(color.colorPrimary);
                 syncEdgeEffect();
             }
             invalidate();

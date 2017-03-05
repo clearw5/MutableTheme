@@ -5,6 +5,7 @@ import android.os.Build;
 import android.preference.PreferenceFragment;
 import android.widget.ListView;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.internal.ScrollingViewEdgeGlowColorHelper;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
@@ -46,10 +47,10 @@ public class ThemeColorPreferenceFragment extends PreferenceFragment implements 
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        if (mThemeColor == color)
+    public void setThemeColor(ThemeColor color) {
+        if (mThemeColor == color.colorPrimary)
             return;
-        mThemeColor = color;
+        mThemeColor = color.colorPrimary;
         hasAppliedThemeColor = false;
     }
 

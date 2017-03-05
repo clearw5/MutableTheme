@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 import com.stardust.theme.internal.DrawableTool;
@@ -45,16 +46,20 @@ public class ThemeColorImageView extends ImageView implements ThemeColorMutable 
     }
 
     @Override
-    public void setColorPrimary(int color) {
-        if (mColor == color)
+    public void setThemeColor(ThemeColor color) {
+        if (mColor == color.colorPrimary)
             return;
-        setImageDrawable(DrawableTool.filterDrawableColor(getDrawable(), color));
+        setColor(color.colorPrimary);
     }
 
     @Override
     public void setImageResource(int resId) {
         super.setImageResource(resId);
         if (mColor != Color.TRANSPARENT)
-            setColorPrimary(mColor);
+            setColor(mColor);
+    }
+
+    private void setColor(int color) {
+        setImageDrawable(DrawableTool.filterDrawableColor(getDrawable(), color));
     }
 }

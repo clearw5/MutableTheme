@@ -3,7 +3,8 @@ package com.stardust.theme.preference;
 import android.content.Context;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 
 import com.stardust.theme.R;

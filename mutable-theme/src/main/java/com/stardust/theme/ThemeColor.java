@@ -1,6 +1,8 @@
 package com.stardust.theme;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import androidx.annotation.ColorRes;
 
 /**
  * Created by Stardust on 2017/3/5.
@@ -58,6 +60,19 @@ public class ThemeColor {
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof ThemeColor) {
+            ThemeColor color = (ThemeColor) obj;
+            return colorPrimary == color.colorPrimary && colorPrimaryDark == color.colorPrimaryDark
+                    && colorAccent == color.colorAccent;
+        }
+        return false;
+    }
+
     public ThemeColor readFrom(SharedPreferences preferences, ThemeColor defaultThemeColor) {
         colorPrimary = preferences.getInt(KEY_COLOR_PRIMARY, defaultThemeColor.colorPrimary);
         colorAccent = preferences.getInt(KEY_COLOR_ACCENT, defaultThemeColor.colorAccent);
@@ -73,5 +88,16 @@ public class ThemeColor {
         } else {
             return new ThemeColor().readFrom(preferences, defaultThemeColor);
         }
+    }
+
+    public static ThemeColor fromColorRes(Context context, @ColorRes int colorPrimaryRes) {
+        return fromColorRes(context, colorPrimaryRes, colorPrimaryRes, colorPrimaryRes);
+    }
+
+    public static ThemeColor fromColorRes(Context context, @ColorRes int colorPrimaryRes, @ColorRes int colorPrimaryDarkRes, @ColorRes int colorAccentRes) {
+        return new ThemeColor()
+                .colorPrimary(context.getResources().getColor(colorPrimaryRes))
+                .colorPrimaryDark(context.getResources().getColor(colorPrimaryDarkRes))
+                .colorAccent(context.getResources().getColor(colorAccentRes));
     }
 }

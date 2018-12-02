@@ -1,24 +1,31 @@
 package com.stardust.theme.app;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ThemeColorRecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ThemeColorRecyclerView;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 import com.stardust.theme.R;
@@ -29,11 +36,12 @@ import com.stardust.theme.ThemeColorManager;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Stardust on 2017/3/5.
  */
 
-public class ColorSelectActivity extends ThemeColorAppCompatActivity {
+public class ColorSelectActivity extends AppCompatActivity {
 
     public static class ColorItem {
         String name;
@@ -61,6 +69,8 @@ public class ColorSelectActivity extends ThemeColorAppCompatActivity {
     private String mTitle;
 
     private Toolbar mToolbar;
+    private AppBarLayout mAppBarLayout;
+    private int mCurrentColor;
     private ColorSettingRecyclerView mColorSettingRecyclerView;
     private ColorSettingRecyclerView.OnItemClickListener mOnItemClickListener = new ColorSettingRecyclerView.OnItemClickListener() {
         @Override
@@ -68,17 +78,36 @@ public class ColorSelectActivity extends ThemeColorAppCompatActivity {
             ThemeColor color = mColorSettingRecyclerView.getSelectedThemeColor();
             if (color != null) {
                 int colorPrimary = color.colorPrimary;
-                mToolbar.setBackgroundColor(colorPrimary);
-                ThemeColorHelper.setStatusBarColor(ColorSelectActivity.this, colorPrimary);
+                setColorWithAnimation(mAppBarLayout, colorPrimary);
             }
 
         }
     };
 
+    private void setColorWithAnimation(final View view, final int colorTo) {
+        int x = view.getLeft();
+        int y = view.getBottom();
+
+        findViewById(R.id.appBarContainer).setBackgroundColor(mCurrentColor);
+        view.setBackgroundColor(colorTo);
+
+        int startRadius = 0;
+        int endRadius = (int) Math.hypot(view.getWidth(), view.getHeight());
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Animator anim = ViewAnimationUtils.createCircularReveal(view, x, y, startRadius, endRadius);
+            anim.setDuration(500);
+            anim.start();
+        }
+        mCurrentColor = colorTo;
+
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handleIntent();
         setUpUI();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
 
     private void handleIntent() {
@@ -90,19 +119,22 @@ public class ColorSelectActivity extends ThemeColorAppCompatActivity {
 
     private void setUpUI() {
         setContentView(R.layout.mt_activity_color_select);
+        mAppBarLayout = findViewById(R.id.appBar);
+        mCurrentColor = ThemeColorManager.getColorPrimary();
+        mAppBarLayout.setBackgroundColor(mCurrentColor);
         setUpToolbar();
         setUpColorSettingRecyclerView();
     }
 
     private void setUpColorSettingRecyclerView() {
-        mColorSettingRecyclerView = (ColorSettingRecyclerView) findViewById(R.id.color_setting_recycler_view);
+        mColorSettingRecyclerView = findViewById(R.id.color_setting_recycler_view);
         mColorSettingRecyclerView.setColors(colorItems);
-        mColorSettingRecyclerView.setSelectedColor(ThemeColorManager.getColorPrimary());
+        mColorSettingRecyclerView.setSelectedColor(mCurrentColor);
         mColorSettingRecyclerView.setOnItemClickListener(mOnItemClickListener);
     }
 
     private void setUpToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle(mTitle);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -284,8 +316,8 @@ public class ColorSelectActivity extends ThemeColorAppCompatActivity {
             ViewHolder(View itemView) {
                 super(itemView);
                 itemView.setOnClickListener(mActualOnItemClickListener);
-                color = (ImageView) itemView.findViewById(R.id.color);
-                name = (TextView) itemView.findViewById(R.id.name);
+                color = itemView.findViewById(R.id.color);
+                name = itemView.findViewById(R.id.name);
             }
 
             void setChecked(boolean checked) {

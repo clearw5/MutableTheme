@@ -2,9 +2,9 @@ package com.stardust.theme.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;

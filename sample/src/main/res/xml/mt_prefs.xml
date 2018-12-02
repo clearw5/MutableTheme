@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Test">
+        <SwitchPreference android:title="A"/>
+        <SwitchPreference android:title="B"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Test">
+        <SwitchPreference android:title="A"/>
+        <SwitchPreference android:title="B"/>
+    </PreferenceCategory>
+
+    <com.stardust.theme.preference.Test
+        android:summary="b switch"
+        android:title="b switch"/>
+</PreferenceScreen>

@@ -1,8 +1,8 @@
 package com.stardust.theme.sample;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import com.stardust.theme.app.ThemeColorAppCompatActivity;
@@ -40,7 +40,7 @@ public class SettingActivity extends ThemeColorAppCompatActivity {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.mt_preferences);
+            addPreferencesFromResource(R.xml.mt_prefs);
         }
     }
 }

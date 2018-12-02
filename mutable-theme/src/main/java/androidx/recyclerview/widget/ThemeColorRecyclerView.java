@@ -1,10 +1,11 @@
-package android.support.v7.widget;
+package androidx.recyclerview.widget;
 
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.EdgeEffectCompat;
+import androidx.annotation.Nullable;
+import androidx.core.widget.EdgeEffectCompat;
+
 import android.util.AttributeSet;
 import android.widget.EdgeEffect;
 

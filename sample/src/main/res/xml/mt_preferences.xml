@@ -11,6 +11,14 @@
             android:summary="a switch"
             android:title="Switch"/>
 
+        <com.stardust.theme.preference.Test
+            android:summary="b switch"
+            android:title="b switch"/>
+
+        <android.preference.SwitchPreference
+            android:summary="b switch"
+            android:title="b switch"/>
+
 
     </com.stardust.theme.preference.ThemeColorPreferenceCategory>
 
@@ -22,4 +30,5 @@
 
 
     </com.stardust.theme.preference.ThemeColorPreferenceCategory>
+
 </PreferenceScreen>

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.preference.SwitchPreference;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.SwitchCompat;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Checkable;
@@ -13,7 +13,6 @@ import android.widget.Switch;
 
 import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorHelper;
-import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
 
 import java.lang.reflect.Field;
@@ -49,7 +48,7 @@ public class ThemeColorSwitchPreference extends SwitchPreference implements Them
     }
 
     private void init() {
-        ThemeColorManager.add(this);
+        //ThemeColorManager.add(this);
     }
 
     @Override

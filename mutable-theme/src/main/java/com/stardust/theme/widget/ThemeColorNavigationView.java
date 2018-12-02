@@ -2,14 +2,10 @@ package com.stardust.theme.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.design.internal.NavigationMenuView;
-import android.support.design.widget.NavigationView;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.view.menu.MenuView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.ThemeColorRecyclerView;
+
 import android.util.AttributeSet;
 
+import com.google.android.material.navigation.NavigationView;
 import com.stardust.theme.ThemeColor;
 import com.stardust.theme.ThemeColorManager;
 import com.stardust.theme.ThemeColorMutable;
@@ -27,7 +23,7 @@ public class ThemeColorNavigationView extends NavigationView implements ThemeCol
 
     static {
         try {
-            PRESENTER_FIELD = NavigationView.class.getDeclaredField("mPresenter");
+            PRESENTER_FIELD = NavigationView.class.getDeclaredField("presenter");
             PRESENTER_FIELD.setAccessible(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

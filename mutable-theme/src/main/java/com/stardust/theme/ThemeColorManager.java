@@ -6,7 +6,9 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.os.Build;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.ColorRes;
+
 import android.view.View;
 
 import java.lang.ref.WeakReference;
@@ -81,6 +83,29 @@ public class ThemeColorManager {
                 return defaultThemeColor.colorPrimary;
         }
         return themeColor.colorPrimary;
+    }
+
+    public static ThemeColor getThemeColor() {
+        return themeColor;
+    }
+
+    public static ThemeColor getDefaultThemeColor() {
+        return defaultThemeColor;
+    }
+
+    public static void setDefaultThemeColor(ThemeColor defaultThemeColor) {
+        ThemeColorManager.defaultThemeColor = defaultThemeColor;
+    }
+
+    public static void setThemeColor(ThemeColor themeColor) {
+        ThemeColorManager.themeColor = themeColor;
+        saveThemeColorIfNeeded();
+        int color = themeColor.colorPrimary;
+        BackgroundColorManager.setColor(color);
+        StatusBarManager.setColor(color);
+        PaintManager.setColor(color);
+        ThemeColorMutableManager.setColor(themeColor);
+        ThemeColorWidgetReferenceManager.setColor(themeColor);
     }
 
     /**
